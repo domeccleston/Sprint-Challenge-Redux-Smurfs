@@ -10,6 +10,7 @@ import * as reducers from './reducers';
 const rootReducer = combineReducers({
   smurfs: reducers.smurfReducer,
   count: reducers.countReducer,
+  form: reducers.formReducer,
 });
 
 const store = createStore(

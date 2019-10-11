@@ -6,6 +6,9 @@ export const FETCH_SMURFS_SUCCESS = "FETCH_SMURFS_SUCCESS";
 export const FETCH_SMURFS_FAIL = "FETCH_SMURFS_FAIL";
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
+export const ON_INPUT_CHANGE = "ON_INPUT_CHANGE";
+export const ADD_SMURF_START = "ADD_SMURF_START";
+
 
 const smurfsApi = "http://localhost:3333/smurfs";
 
@@ -25,12 +28,19 @@ export const fetchSmurfs = () => dispatch => {
   axios
     .get(smurfsApi)
     .then(res => {
-      dispatch({ type: FETCH_SMURFS_SUCCESS, payload: res.data[0].name })
+      dispatch({ type: FETCH_SMURFS_SUCCESS, payload: res.data[0] })
     })
     .catch(err => {
       dispatch({ type: FETCH_SMURFS_FAIL, payload: err })
     })
 };
+
+export const addSmurf = (smurf) => dispatch => {
+  dispatch({ type: ADD_SMURF_START });
+  axios.post(smurfsApi, smurf)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
 
 export function increment() {
   return { type: INCREMENT };
@@ -38,4 +48,14 @@ export function increment() {
 
 export function decrement() {
   return { type: DECREMENT };
+}
+
+export function setForm(target) {
+  return {
+    type: ON_INPUT_CHANGE, 
+    payload: {
+      name: target.name,
+      value: target.value,
+    }
+  }
 }

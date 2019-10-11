@@ -26,7 +26,7 @@ import * as actionCreators from '../actions/index';
 
 function App(props) {
 
-  console.log(props.smurfs.smurfs)
+  console.log(props)
 
   useEffect(() => {
     props.fetchSmurfs()
@@ -34,6 +34,16 @@ function App(props) {
 
   async function fetchNewSmurfs() {
     const newData = props.fetchSmurfs();
+  }
+
+  function handleFormChange(event) {
+    props.setForm(event.target);
+    console.log(event.target.name)
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    props.addSmurf(props.form)
   }
 
   return(
@@ -47,7 +57,21 @@ function App(props) {
         <button onClick={props.decrement}>-</button>
         <button onClick={fetchNewSmurfs}>Start</button>
         {props.smurfs.fetchingSmurfs && <p>Fetching your smurfs</p>}
-        {props.smurfs.smurfs && <h3>{props.smurfs.smurfs}</h3>}
+        
+        {props.smurfs.smurfs &&
+          <>
+          <h3>{props.smurfs.smurfs.name}</h3>
+          <h3>{props.smurfs.smurfs.age}</h3>
+          <h3>{props.smurfs.smurfs.height}</h3>
+          </> 
+        }
+
+        <form onSubmit={handleFormSubmit}>
+          <input name="name" onChange={handleFormChange} type="text" placeholder="Smurf Name"></input>
+          <input name="age" onChange={handleFormChange} type="text" placeholder="Smurf Age"></input>
+          <input name="height" onChange={handleFormChange} type="text" placeholder="Smurf Height"></input>
+          <button>Add</button>
+        </form>
       </div>
   );
 

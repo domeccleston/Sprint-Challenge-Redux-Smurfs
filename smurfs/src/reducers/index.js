@@ -11,6 +11,12 @@ const initialState = {
    error: null
  }
 
+ const initialForm = {
+   name: "",
+   age: "",
+   height: "",
+ }
+
 export const countReducer = (state = initialCount, action) => {
   switch (action.type) {
     default:
@@ -44,6 +50,24 @@ export function smurfReducer(state = initialState, action) {
       return {
         ...state,
         error: action.payload,
+      }
+    case types.ADD_SMURF_START:
+        return {
+          ...state,
+          addingSmurf: true,
+          error: '',
+        }
+    }
+}
+
+export function formReducer(state = initialForm, action) {
+  switch(action.type) {
+    default:
+      return state
+    case types.ON_INPUT_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
       }
   }
 }
