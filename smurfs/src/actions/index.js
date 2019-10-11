@@ -10,7 +10,6 @@ export const ON_INPUT_CHANGE = "ON_INPUT_CHANGE";
 export const ADD_SMURF_START = "ADD_SMURF_START";
 export const ADD_SMURF_SUCCESS = "ADD_SMURF_SUCCESS";
 
-
 const smurfsApi = "http://localhost:3333/smurfs";
 
 /*
@@ -29,21 +28,22 @@ export const fetchSmurfs = () => dispatch => {
   axios
     .get(smurfsApi)
     .then(res => {
-      dispatch({ type: FETCH_SMURFS_SUCCESS, payload: res.data })
+      dispatch({ type: FETCH_SMURFS_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ type: FETCH_SMURFS_FAIL, payload: err })
-    })
+      dispatch({ type: FETCH_SMURFS_FAIL, payload: err });
+    });
 };
 
-export const addSmurf = (smurf) => dispatch => {
+export const addSmurf = smurf => dispatch => {
   dispatch({ type: ADD_SMURF_START });
-  axios.post(smurfsApi, smurf)
+  axios
+    .post(smurfsApi, smurf)
     .then(res => {
-      dispatch({ type: ADD_SMURF_SUCCESS, payload: res.data})
+      dispatch({ type: ADD_SMURF_SUCCESS, payload: res.data });
     })
-    .catch(err => console.log(err))
-}
+    .catch(err => console.log(err));
+};
 
 export function increment() {
   return { type: INCREMENT };
@@ -55,10 +55,10 @@ export function decrement() {
 
 export function setForm(target) {
   return {
-    type: ON_INPUT_CHANGE, 
+    type: ON_INPUT_CHANGE,
     payload: {
       name: target.name,
-      value: target.value,
+      value: target.value
     }
-  }
+  };
 }
