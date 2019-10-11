@@ -26,7 +26,7 @@ import * as actionCreators from '../actions/index';
 
 function App(props) {
 
-  console.log(props)
+  console.log(props.smurfs.smurfs.map(smurf => smurf.name))
 
   useEffect(() => {
     props.fetchSmurfs()
@@ -58,13 +58,22 @@ function App(props) {
         <button onClick={fetchNewSmurfs}>Start</button>
         {props.smurfs.fetchingSmurfs && <p>Fetching your smurfs</p>}
         
-        {props.smurfs.smurfs &&
+        {/*props.smurfs.smurfs &&
           <>
           <h3>{props.smurfs.smurfs.name}</h3>
           <h3>{props.smurfs.smurfs.age}</h3>
           <h3>{props.smurfs.smurfs.height}</h3>
           </> 
-        }
+        */}
+
+        {props.smurfs.smurfs && 
+          props.smurfs.smurfs.map(smurf => (
+            <>
+            <h3>{smurf.name}</h3>
+            <h3>{smurf.age}</h3>
+            <h3>{smurf.height}</h3>
+            </>    
+          ))}
 
         <form onSubmit={handleFormSubmit}>
           <input name="name" onChange={handleFormChange} type="text" placeholder="Smurf Name"></input>

@@ -52,10 +52,25 @@ export function smurfReducer(state = initialState, action) {
         error: action.payload,
       }
     case types.ADD_SMURF_START:
+      return {
+        ...state,
+        addingSmurf: true,
+        error: '',
+      }
+    case types.ADD_SMURF_SUCCESS:
+      return {
+        ...state,
+        smurfs: [
+          ...state.smurfs.smurfs,
+          action.payload
+        ],
+        addingSmurf: false,
+        error: '',
+      }
+    case types.FETCH_SMURFS_FAIL:
         return {
           ...state,
-          addingSmurf: true,
-          error: '',
+          error: action.payload,
         }
     }
 }
