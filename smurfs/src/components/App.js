@@ -23,6 +23,7 @@ function App(props) {
   function handleFormSubmit(event) {
     event.preventDefault();
     props.addSmurf(props.form);
+    props.fetchSmurfs();
   }
 
   return (
